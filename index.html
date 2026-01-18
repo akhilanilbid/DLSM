@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DLSM Live CX Alerts</title>
+</head>
+<body style="font-family: Arial; padding: 20px;">
+    <h2>Real-Time Client Updates</h2>
+    <div id="alert-box" style="padding: 15px; border: 2px solid #007bff; background: #f8f9fa;">
+        Connecting to HubSpot...
+    </div>
+
+    <script>
+        async function refreshAlert() {
+            try {
+                // Fetch the JSON from your site's URL
+                const response = await fetch('/alert-data.json?t=' + Date.now());
+                const data = await response.json();
+                document.getElementById('alert-box').innerText = data.message;
+            } catch (err) { console.error("Update failed", err); }
+        }
+        // Auto-refresh every 5 seconds
+        setInterval(refreshAlert, 5000);
+        refreshAlert(); 
+    </script>
+</body>
+</html>
